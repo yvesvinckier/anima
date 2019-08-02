@@ -14,7 +14,7 @@ const IndexPage = () => (
         paddingTop: "400px",
       }}
     >
-      <h1>ANIMA.DESIGN</h1>
+      <h1>Blowup.design</h1>
       <h4>COMING SOON</h4>
     </div>
   </Layout>
