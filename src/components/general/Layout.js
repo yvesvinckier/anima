@@ -5,6 +5,7 @@ import GlobalStyle from '../../styles/global'
 import theme from '../../styles/theme'
 
 import Nav from '../general/Nav'
+import WhiteHeader from '../general/Header'
 
 class Layout extends React.Component {
   render() {
@@ -20,6 +21,7 @@ class Layout extends React.Component {
               content="width=device-width, initial-scale=1"
             />
           </Helmet>
+          <WhiteHeader />
           <Nav />
           <main>{children}</main>
           <GlobalStyle />

@@ -36,7 +36,7 @@ const Intro = styled.section`
 const items = ['Creating thoughtful', 'experiences', 'for your brand.']
 const config = { mass: 5, tension: 2000, friction: 200 }
 
-const IndexPage = () => {
+const Services = () => {
   const trail = useTrail(items.length, {
     config,
     delay: 200,
@@ -72,4 +72,4 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+export default Services
