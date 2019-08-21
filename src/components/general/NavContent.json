@@ -1,0 +1,30 @@
+{
+  "nav": {
+    "links": [
+      {
+        "text": "Home",
+        "to": "/"
+      },
+      {
+        "text": "My work",
+        "to": "/work"
+      },
+      {
+        "text": "Services",
+        "to": "/services"
+      },
+      {
+        "text": "About me",
+        "to": "/about"
+      },
+      {
+        "text": "Playground",
+        "to": "/playground"
+      },
+      {
+        "text": "Contact",
+        "to": "/contact"
+      }
+    ]
+  }
+}
