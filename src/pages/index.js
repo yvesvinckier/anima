@@ -1,75 +1,82 @@
 import React from 'react'
-import styled from 'styled-components'
-import { useTrail, animated } from 'react-spring'
+import { graphql } from 'gatsby'
+import debounce from 'lodash/debounce'
+import throttle from 'lodash/throttle'
+import BgImg from '../components/general/Background'
 
-import Layout from '../components/general/Layout'
-import SEO from '../components/general/SEO'
-
-const Intro = styled.section`
-  position: relative;
-  height: 86vh;
-  z-index: 1;
-  background: ${props => props.theme.colors.base};
-  color: ${props => props.theme.colors.white};
-  display: flex;
-  align-items: center;
-  h1 {
-    width: 40.5%;
-    margin-left: 12%;
-    font-size: 3.61vw;
-    font-weight: 100;
-    line-height: 1;
+class IndexPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: this.props.data.allContentfulGallery.edges,
+      post: this.props.data.allContentfulGallery.edges[0].node,
+    };
   }
-  .c-home-line {
-    overflow: hidden;
-    display: block;
-    padding-bottom: 0.2em;
-    &:last-of-type {
-      font-weight: 400;
+  componentDidMount() {
+    this.mouseWheelListener = throttle(e => this.handleMouseWheel(e), 2000, {
+      leading: true,
+      trailing: false,
+    })
+
+    window.addEventListener('wheel', this.mouseWheelListener, { passive: true })
+  }
+  handleMouseWheel({ deltaY }) {
+    const index = this.state.post.index
+    const activeIndex = deltaY > 0 ? index + 1 : index - 1
+    this.handleProjectSwitch(activeIndex)
+  }
+  handleProjectSwitch = debounce(
+    activeIndex => {
+      const projectsDataCount = this.state.posts.length - 1
+      let index = activeIndex
+
+      if (index > projectsDataCount) {
+        index = 0
+      } else if (index < 0) {
+        index = projectsDataCount
+      }
+
+      this.setState({
+        post: this.props.data.allContentfulGallery.edges[index].node,
+      })
+    },
+    350,
+    { leading: true, trailing: false }
+  )
+  render() {
+    const { post } = this.state
+    return (
+      <>
+        {/* <h1>{post.title}</h1> */}
+        <BgImg
+          height={'100vh'}
+          fluid={post.cover.fluid}
+          alt={post.cover.title}
+          title={post.cover.title}
+        />
+      </>
+    )
+  }
+}
+export const query = graphql`
+  query HomeQuery {
+    allContentfulGallery(limit: 8, sort: { fields: index, order: ASC }) {
+      edges {
+        node {
+          title
+          id
+          slug
+          index
+          cover {
+            title
+            fluid(maxWidth: 1800) {
+              ...GatsbyContentfulFluid_withWebp_noBase64
+            }
+          }
+        }
+      }
     }
   }
-  .c-home-line-inner {
-    display: inline-block;
-  }
 `
-
-const items = ['Creating thoughtful', 'experiences', 'for your brand.']
-const config = { mass: 5, tension: 2000, friction: 200 }
-
-const IndexPage = () => {
-  const trail = useTrail(items.length, {
-    config,
-    delay: 200,
-    from: {
-      opacity: 0,
-      x: 110,
-    },
-    to: {
-      opacity: 1,
-      x: 0,
-    },
-  })
-  return (
-    <Layout>
-      <SEO title="Home" />
-      <Intro>
-        <h1>
-          {trail.map(({ x }, index) => (
-            <animated.span key={items[index]} className="c-home-line">
-              <animated.span
-                className="c-home-line-inner"
-                style={{
-                  transform: x.interpolate(x => `translate3d(0,${x}%,0)`),
-                }}
-              >
-                {items[index]}
-              </animated.span>
-            </animated.span>
-          ))}
-        </h1>
-      </Intro>
-    </Layout>
-  )
-}
 
 export default IndexPage
