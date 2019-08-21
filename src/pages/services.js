@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useTrail, animated } from 'react-spring'
 
-import Layout from '../components/general/Layout'
+import Layout from '../components/general/layout'
 import SEO from '../components/general/SEO'
 
 const Intro = styled.section`

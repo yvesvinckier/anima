@@ -4,8 +4,8 @@ import { ThemeProvider } from 'styled-components'
 import GlobalStyle from '../../styles/global'
 import theme from '../../styles/theme'
 
-import Nav from '../general/Nav'
-import WhiteHeader from '../general/Header'
+import Nav from './Nav'
+import WhiteHeader from './Header'
 
 class Layout extends React.Component {
   render() {
