@@ -2,15 +2,30 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
-import BgImg from '../components/general/Background'
+import styled from 'styled-components'
+import ImageWebGL from '../components/index/ImageWebGL'
+
+import ColumnOne from '../components/index/ColumnOne'
+import ColumnTwo from '../components/index/ColumnTwo'
+
+const InnerCol = styled.section`
+  color: #fff;
+  font-size: 0;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+`
 
 class IndexPage extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       posts: this.props.data.allContentfulGallery.edges,
       post: this.props.data.allContentfulGallery.edges[0].node,
-    };
+    }
   }
   componentDidMount() {
     this.mouseWheelListener = throttle(e => this.handleMouseWheel(e), 2000, {
@@ -44,16 +59,54 @@ class IndexPage extends React.Component {
     { leading: true, trailing: false }
   )
   render() {
-    const { post } = this.state
+    const { post, posts } = this.state
+
+    const goToNextSlide = e => {
+      e.preventDefault()
+
+      const projectsDataCount = this.state.posts.length - 1
+      const activeIndex = this.state.post.index + 1
+      let index = activeIndex
+      if (index > projectsDataCount) {
+        index = 0
+      } else if (index < 0) {
+        index = projectsDataCount
+      }
+      this.setState({
+        post: this.props.data.allContentfulGallery.edges[index].node,
+      })
+    }
+
+    const goToPrevSlide = e => {
+      e.preventDefault()
+
+      const projectsDataCount = this.state.posts.length - 1
+      const activeIndex = this.state.post.index - 1
+      let index = activeIndex
+      if (index > projectsDataCount) {
+        index = 0
+      } else if (index < 0) {
+        index = projectsDataCount
+      }
+      this.setState({
+        post: this.props.data.allContentfulGallery.edges[index].node,
+      })
+    }
+
     return (
       <>
         {/* <h1>{post.title}</h1> */}
-        <BgImg
-          height={'100vh'}
-          fluid={post.cover.fluid}
-          alt={post.cover.title}
-          title={post.cover.title}
-        />
+        <InnerCol>
+          <ColumnOne posts={posts} post={post} />
+          <ColumnTwo
+            key={post.id}
+            post={post}
+            posts={posts}
+            goToNextSlide={goToNextSlide}
+            goToPrevSlide={goToPrevSlide}
+          />
+        </InnerCol>
+        <ImageWebGL post={post} />
       </>
     )
   }
