@@ -113,7 +113,7 @@ class IndexPage extends React.Component {
 }
 export const query = graphql`
   query HomeQuery {
-    allContentfulGallery(limit: 8, sort: { fields: index, order: ASC }) {
+    allContentfulGallery(limit: 10, sort: { fields: index, order: ASC }) {
       edges {
         node {
           title
@@ -121,8 +121,7 @@ export const query = graphql`
           slug
           index
           cover {
-            title
-            fluid(maxWidth: 1800) {
+            fluid(maxWidth: 1920) {
               ...GatsbyContentfulFluid_withWebp_noBase64
             }
           }

@@ -19,7 +19,7 @@ const ColTwo = styled.div`
     margin: 20px 0 0 -3px;
     color: #fff;
     h2 {
-      font-weight: 300;
+      font-weight: 400;
       font-size: 9.16vw;
       line-height: 100px;
       @media screen and (min-width: ${props => props.theme.responsive.small}) {
