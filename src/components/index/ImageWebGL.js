@@ -14,7 +14,7 @@ class ImageWebGL extends Component {
     this.imageTween.play()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.post.cover.fluid !== this.props.post.cover.fluid) {
       this.imageTween.play()
     }

@@ -22,11 +22,13 @@
     "lodash": "^4.17.15",
     "lodash.find": "^4.6.0",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
     "react-spring": "^8.0.27",
-    "styled-components": "^4.3.2"
+    "react-three-fiber": "^2.3.6",
+    "styled-components": "^4.3.2",
+    "three": "^0.107.0"
   },
   "devDependencies": {
     "eslint": "^6.2.1",
