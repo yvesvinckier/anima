@@ -8,15 +8,13 @@ import { graphql } from 'gatsby'
 import Layout from '../components/general/Layout'
 import SEO from '../components/general/SEO'
 
-const image = 'https://images.unsplash.com/photo-1517462964-21fdcec3f25b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80'
-
-const Image = ({ url, ...props }) => {
+const Image = ({ src, ...props }) => {
     const [hovered, setHover] = useState(false)
 
     const [texture] = useMemo(() => {
         const loader = new TextureLoader()
-        return [loader.load(url)]
-    }, [url])
+        return [loader.load(src)]
+    }, [src])
 
     const { hoverValue } = useSpring({
         hoverValue: hovered ? 1 : 0,
@@ -31,7 +29,10 @@ const Image = ({ url, ...props }) => {
     )
 }
 
-const WorkPage = () => {
+const WorkPage = ({ data }) => {
+    const projects = data.allContentfulGallery.edges
+    const projectsOne = data.allContentfulGallery.edges[0].node
+    console.log(projects, projectsOne);
     const [props, set] = useSpring(() => ({
         pos: [0, 0, 0],
         scale: [1, 1, 1],
@@ -41,22 +42,30 @@ const WorkPage = () => {
     return (
         <Layout>
             <SEO title="Page two" />
-            <div
-                onMouseMove={({ clientX, clientY }) => {
-                    const x = (clientX / window.innerWidth) * 2 - 1
-                    const y = -(clientY / window.innerHeight) * 2 + 1
+            {projects.map(({ node: project }) => (
+                <div key={project.id}
+                    onMouseMove={({ clientX, clientY }) => {
+                        const x = (clientX / window.innerWidth) * 2 - 1
+                        const y = -(clientY / window.innerHeight) * 2 + 1
 
-                    set({
-                        pos: [x, 0, 0],
-                        scale: [1 - y * 0.1, 1 - y * 0.1, 1],
-                        rotation: [-y * (Math.PI / 3) * 0.3, x * (Math.PI / 3) * 0.3, 0]
-                    })
-                }}
-            >
-                <Canvas pixelRatio={window.devicePixelRatio || 1} style={{ background: '#272727' }} camera={{ fov: 75, position: [0, 0, 7] }}>
-                    <Image url={image} {...props} />
-                </Canvas>
-            </div>
+                        set({
+                            pos: [x, 0, 0],
+                            scale: [1 - y * 0.1, 1 - y * 0.1, 1],
+                            rotation: [-y * (Math.PI / 3) * 0.3, x * (Math.PI / 3) * 0.3, 0]
+                        })
+                    }}
+                >
+                    {/* <div>{project.title}</div>
+                    <img src={project.cover.fluid.src} /> */}
+
+                    <Canvas pixelRatio={window.devicePixelRatio || 1} style={{ background: '#272727' }} camera={{ fov: 75, position: [0, 0, 7] }}>
+
+                        <Image src={project.cover.fluid.src} {...props} />
+
+                    </Canvas>
+
+                </div>
+            ))}
         </Layout>
     )
 }
@@ -71,10 +80,10 @@ export const query = graphql`
           slug
           index
           cover {
-            fluid(maxWidth: 1920) {
-              ...GatsbyContentfulFluid_withWebp_noBase64
+            fluid(maxWidth: 1800) {
+              src
             }
-          }
+        }
         }
       }
     }
