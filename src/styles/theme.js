@@ -2,7 +2,7 @@ const theme = {
   colors: {
     base: '#121212', // Black
     secondary: '#414141', // Light Gray
-    tertiary: '#272727', // Medium Gray
+    tertiary: '#7f7f7f', // Medium Gray
     white: '#fff', // White
   },
   sizes: {
