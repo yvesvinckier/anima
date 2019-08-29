@@ -4,23 +4,24 @@ import { useSpring, animated } from 'react-spring'
 
 const Toggle = styled.button`
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 20px;
+  right: 20px;
   z-index: 999;
-  margin-top: 7.14vw;
+  padding: 30px;
+  // margin-top: 7.14vw;
   mix-blend-mode: difference;
   cursor: pointer;
   text-decoration: none;
   display: flex;
   align-items: center;
-  margin-right: 7.142857142857142%;
+  // margin-right: 7.142857142857142%;
   perspective: 200px;
   transform: translateZ(0);
   .topbar {
     position: absolute;
     display: block;
     width: 100%;
-    height: 1px;
+    height: 2px;
     top: 0;
     &::before {
       content: '';
@@ -51,7 +52,7 @@ const Toggle = styled.button`
     position: absolute;
     display: block;
     width: 100%;
-    height: 1px;
+    height: 2px;
     bottom: 0;
     &::before {
       content: '';
@@ -96,20 +97,20 @@ const Toggle = styled.button`
 
 const ToggleIcon = styled.div`
   position: relative;
-  width: 24px;
-  height: 5px;
+  width: 25px;
+  height: 10px;
   margin-left: 20px;
 `
 
 function Hambuger({ toggle, opened }) {
   const BarOneAnimation = useSpring({
     transform: opened
-      ? `rotate(-45deg) translateY(3px)`
+      ? `rotate(-45deg) translateY(5.5px)`
       : `rotate(0deg) translateY(0px)`,
   })
   const BarTwoAnimation = useSpring({
     transform: opened
-      ? `rotate(45deg) translateY(-3px)`
+      ? `rotate(45deg) translateY(-5.5px)`
       : `rotate(0deg) translateY(0px)`,
   })
   return (

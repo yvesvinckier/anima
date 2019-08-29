@@ -48,7 +48,7 @@ const ProjectPara = styled.div`
   p {
     color: ${props => props.theme.colors.base};
     line-height: 1.9;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 200;
     margin: 0;
   }

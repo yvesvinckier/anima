@@ -6,11 +6,13 @@ const Header = styled.div`
   z-index: 12;
   position: fixed;
   width: 100%;
-  margin-left: 12%;
-  margin-top: 7.14vw;
+  top: 20px;
+  left: 20px;
+  padding: 30px;
+  mix-blend-mode: difference;
+  // margin-left: 12%;
+  // margin-top: 7.14vw;
   & > a {
-    font-weight: 700;
-    font-size: 20px;
     transform-origin: 100% 0%;
     transform: translateX(-100%) rotate(-90deg);
     z-index: 20;
@@ -20,7 +22,7 @@ const Header = styled.div`
     }
   }
   h2 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
     z-index: 1;
     a {
@@ -50,7 +52,7 @@ const Header = styled.div`
 const WhiteHeader = () => (
   <Header>
     <h2>
-      <Link to="/">blowup</Link>
+      <Link to="/">bløwup</Link>
     </h2>
   </Header>
 )
